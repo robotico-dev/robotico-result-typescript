@@ -1,0 +1,22 @@
+{
+  "name": "@robotico/result",
+  "version": "0.1.0",
+  "description": "Robotico Result — Result type for success/error handling in TypeScript.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist/**/*"],
+  "scripts": {
+    "build": "tsc",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:1})\""
+  },
+  "keywords": ["robotico", "result", "either", "error-handling"],
+  "author": "Robotico",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robotico-dev/robotico-result-typescript"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
