@@ -1,6 +1,6 @@
 # Publish @robotico/result to GitHub Packages (npm).
 # Trigger: create a Release (published) or run workflow_dispatch.
-# Scope @robotico must match the GitHub org that owns this repo for GITHUB_TOKEN to work.
+# Scope @robotico-dev must match the GitHub org/user that owns this repo for GITHUB_TOKEN to work.
 name: Build and Publish
 
 on:
@@ -51,7 +51,7 @@ jobs:
         with:
           node-version: "20"
           registry-url: "https://npm.pkg.github.com"
-          scope: "@robotico"
+          scope: "@robotico-dev"
           cache: "npm"
 
       - run: npm ci

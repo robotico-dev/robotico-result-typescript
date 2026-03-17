@@ -1,11 +1,11 @@
-# @robotico/result
+# @robotico-dev/result
 
 **Result** type for success/error handling in TypeScript: `Ok(value)` | `Err(error)`. Supports void results, typed errors, and async. Aligned with Robotico.Result (C#) and dev.robotico.result (Kotlin).
 
 ## Install
 
 ```bash
-npm install @robotico/result
+npm install @robotico-dev/result
 ```
 
 **Requirements:** Node.js >= 18.
@@ -24,7 +24,7 @@ import {
   tryResult,
   combine,
   createSimpleError,
-} from "@robotico/result";
+} from "@robotico-dev/result";
 
 const r = successOf(42);
 map(r, (x) => x + 1);           // Ok(43)
@@ -57,7 +57,7 @@ import {
   validationErrorForField,
   createExceptionError,
   aggregateError,
-} from "@robotico/result";
+} from "@robotico-dev/result";
 
 simpleError("Something went wrong");
 createValidationError({ email: ["invalid"], name: ["required"] });

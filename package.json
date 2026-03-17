@@ -1,5 +1,5 @@
 {
-  "name": "@robotico/result",
+  "name": "@robotico-dev/result",
   "version": "0.1.0",
   "description": "Robotico Result — Result type for success/error handling in TypeScript.",
   "type": "module",
