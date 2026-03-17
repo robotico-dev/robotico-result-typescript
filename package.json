@@ -2,12 +2,31 @@
   "name": "@robotico/result",
   "version": "0.1.0",
   "description": "Robotico Result — Result type for success/error handling in TypeScript.",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "files": ["dist/**/*"],
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "tsc",
-    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:1})\""
+    "clean": "node --input-type=module -e \"import fs from 'fs'; fs.rmSync('dist',{recursive:true,force:true});\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --max-warnings 0",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "docs": "typedoc --out docs src/index.ts --exclude \"**/*.test.ts\" --exclude \"**/*.laws.test.ts\""
   },
   "keywords": ["robotico", "result", "either", "error-handling"],
   "author": "Robotico",
@@ -16,7 +35,17 @@
     "type": "git",
     "url": "https://github.com/robotico-dev/robotico-result-typescript"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "devDependencies": {
-    "typescript": "^5.7.0"
+    "@eslint/js": "^9.0.0",
+    "@vitest/coverage-v8": "^2.0.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.4.0",
+    "typescript": "^5.7.0",
+    "typedoc": "^0.28.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.0.0"
   }
 }
