@@ -100,9 +100,7 @@ export function combine4<T1, T2, T3, T4>(
   r3: Result<T3>,
   r4: Result<T4>
 ): Result<readonly [T1, T2, T3, T4]> {
-  return combineResults([r1, r2, r3, r4]) as Result<
-    readonly [T1, T2, T3, T4]
-  >;
+  return combineResults([r1, r2, r3, r4]) as Result<readonly [T1, T2, T3, T4]>;
 }
 
 /**
