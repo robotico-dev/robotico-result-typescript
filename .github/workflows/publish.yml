@@ -30,8 +30,8 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run test
-      # Fails the job if coverage thresholds (90%) are not met; do not use || true
-      - name: Check coverage thresholds (90%)
+      # Fails the job if coverage thresholds (100%) are not met; do not use || true
+      - name: Check coverage thresholds (100%)
         run: npm run test:coverage
       - run: npm run lint
       - run: npm run format:check

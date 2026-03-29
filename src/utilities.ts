@@ -44,10 +44,9 @@ function combineResults(
 ): Result<readonly unknown[]> {
   const errors = collectErrorsFromResults(results);
   if (errors.length > 0) return errorOf(toAggregate(errors));
-  const values: unknown[] = [];
-  for (const r of results) {
-    if (r._tag === "ok") values.push(r.value);
-  }
+  const values = results.map(
+    (r) => (r as Extract<Result<unknown>, { _tag: "ok" }>).value
+  );
   return successOf(values);
 }
 

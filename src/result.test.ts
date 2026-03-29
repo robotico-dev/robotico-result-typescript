@@ -121,6 +121,9 @@ describe("Result<T>", () => {
       )
     ).toThrow("wrapped:custom");
   });
+  it("expectSuccessVoid returns when ok", () => {
+    expect(expectSuccessVoid(success())).toBeUndefined();
+  });
   it("expectSuccessVoid throws for err", () => {
     const err = createSimpleError("v");
     expect(() => expectSuccessVoid(error(err))).toThrow("v");
