@@ -4,6 +4,7 @@ import {
   error,
   successOf,
   errorOf,
+  successTyped,
   isError,
   isSuccessOf,
   isErrorOf,
@@ -116,6 +117,14 @@ describe("result-async", () => {
       );
       expect(isErrorOf(r)).toBe(true);
       if (isErrorOf(r)) expect(r.error).toBe(err);
+    });
+    it("mapErrorTypedAsync ok passes through", async () => {
+      const r = await mapErrorTypedAsync(
+        successTyped(7),
+        async (e) => createSimpleError(e.message)
+      );
+      expect(isSuccessOf(r)).toBe(true);
+      if (isSuccessOf(r)) expect(r.value).toBe(7);
     });
     it("mapErrorTypedAsync err maps error", async () => {
       const r = await mapErrorTypedAsync(

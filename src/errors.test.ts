@@ -7,6 +7,7 @@ import {
   validationErrorForField,
   createExceptionError,
   createError,
+  createAggregateError,
   aggregateError,
 } from "./errors.js";
 
@@ -57,6 +58,20 @@ describe("errors", () => {
       expect(e.message).toBe("boom");
       expect(e.exception).toBe(ex);
     });
+    it("wraps non-Error as string message", () => {
+      const e = createExceptionError("plain");
+      expect(e.message).toBe("plain");
+      expect(e.exception).toBe("plain");
+    });
+    it("uses default message when Error message is undefined", () => {
+      const ex = new Error();
+      Object.defineProperty(ex, "message", {
+        value: undefined,
+        configurable: true,
+      });
+      const e = createExceptionError(ex);
+      expect(e.message).toBe("An exception occurred");
+    });
   });
 
   describe("createError / createAggregateError", () => {
@@ -65,6 +80,20 @@ describe("errors", () => {
       const e = createError("top", [c]);
       expect(e.causedBy).toHaveLength(1);
       expect(e.innerError).toBe(c);
+    });
+    it("createError with empty causedBy has null innerError", () => {
+      const e = createError("top", []);
+      expect(e.causedBy).toHaveLength(0);
+      expect(e.innerError).toBeNull();
+    });
+    it("createError with null causedBy", () => {
+      const e = createError("top", null);
+      expect(e.innerError).toBeNull();
+    });
+    it("createAggregateError with empty errors has null innerError", () => {
+      const e = createAggregateError("none", []);
+      expect(e.errors).toHaveLength(0);
+      expect(e.innerError).toBeNull();
     });
     it("aggregateError combines multiple", () => {
       const errs = [simpleError("a"), simpleError("b")];

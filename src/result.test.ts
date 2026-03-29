@@ -64,6 +64,9 @@ describe("Result<T>", () => {
     expect(r._tag).toBe("err");
     expect(isErrorOf(r)).toBe(true);
   });
+  it("errorOf(null) throws", () => {
+    expect(() => errorOf<number>(null!)).toThrow(/must not be null/);
+  });
   it("map on ok maps value", () => {
     const r = map(successOf(1), (x) => x + 1);
     expect(isSuccessOf(r)).toBe(true);
@@ -199,6 +202,13 @@ describe("ResultTyped conversions and helpers", () => {
       "err"
     );
     expect(fromVoidTyped(successTyped(1))._tag).toBe("ok");
+    expect(
+      fromVoidTyped(
+        errorTyped<number, ReturnType<typeof createSimpleError>>(
+          createSimpleError("vt")
+        )
+      )._tag
+    ).toBe("err");
   });
   it("fromTypedToResult preserves ok/err", () => {
     const ok = fromTypedToResult(successTyped(2));
@@ -255,5 +265,10 @@ describe("ResultTyped map/bind/mapError", () => {
     );
     expect(r._tag).toBe("ok");
     if (r._tag === "ok") expect(r.value).toBe(1);
+  });
+  it("errorTyped rejects null", () => {
+    expect(() =>
+      errorTyped<number, ReturnType<typeof createSimpleError>>(null!)
+    ).toThrow(/must not be null/);
   });
 });

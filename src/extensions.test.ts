@@ -59,11 +59,22 @@ describe("extensions", () => {
       tap(successOf(1), fn);
       expect(fn).toHaveBeenCalledWith(1);
     });
+    it("tap skips on err", () => {
+      const fn = vi.fn();
+      const err = createSimpleError("e");
+      tap(errorOf<number>(err), fn);
+      expect(fn).not.toHaveBeenCalled();
+    });
     it("tapError runs on err", () => {
       const err = createSimpleError("x");
       const fn = vi.fn();
       tapError(errorOf<number>(err), fn);
       expect(fn).toHaveBeenCalledWith(err);
+    });
+    it("tapError skips on ok", () => {
+      const fn = vi.fn();
+      tapError(successOf(1), fn);
+      expect(fn).not.toHaveBeenCalled();
     });
   });
 
@@ -127,6 +138,16 @@ describe("extensions", () => {
         () => createSimpleError("zero")
       );
       expect(r._tag).toBe("err");
+    });
+    it("err passes through unchanged", () => {
+      const err = createSimpleError("e");
+      const rIn = errorOf<number>(err);
+      const r = ensure(
+        rIn,
+        () => true,
+        () => createSimpleError("other")
+      );
+      expect(r).toBe(rIn);
     });
   });
 
@@ -200,11 +221,21 @@ describe("extensions", () => {
       tapVoid(success(), fn);
       expect(fn).toHaveBeenCalled();
     });
+    it("tapVoid skips action when err", () => {
+      const fn = vi.fn();
+      tapVoid(error(createSimpleError("x")), fn);
+      expect(fn).not.toHaveBeenCalled();
+    });
     it("tapErrorVoid runs action when err", () => {
       const err = createSimpleError("e");
       const fn = vi.fn();
       tapErrorVoid(error(err), fn);
       expect(fn).toHaveBeenCalledWith(err);
+    });
+    it("tapErrorVoid skips when ok", () => {
+      const fn = vi.fn();
+      tapErrorVoid(success(), fn);
+      expect(fn).not.toHaveBeenCalled();
     });
     it("recoverWithVoid returns self when ok", () => {
       const r = success();
@@ -284,11 +315,21 @@ describe("extensions", () => {
       tapTyped(successTyped(1), fn);
       expect(fn).toHaveBeenCalledWith(1);
     });
+    it("tapTyped skips when err", () => {
+      const fn = vi.fn();
+      tapTyped(errorTyped<number>(createSimpleError("e")), fn);
+      expect(fn).not.toHaveBeenCalled();
+    });
     it("tapErrorTyped runs action when err", () => {
       const err = createSimpleError("x");
       const fn = vi.fn();
       tapErrorTyped(errorTyped<number>(err), fn);
       expect(fn).toHaveBeenCalledWith(err);
+    });
+    it("tapErrorTyped skips when ok", () => {
+      const fn = vi.fn();
+      tapErrorTyped(successTyped(1), fn);
+      expect(fn).not.toHaveBeenCalled();
     });
     it("recoverTyped returns self when ok", () => {
       const r = successTyped(1);
