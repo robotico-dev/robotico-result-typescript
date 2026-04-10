@@ -119,9 +119,8 @@ describe("result-async", () => {
       if (isErrorOf(r)) expect(r.error).toBe(err);
     });
     it("mapErrorTypedAsync ok passes through", async () => {
-      const r = await mapErrorTypedAsync(
-        successTyped(7),
-        async (e) => createSimpleError(e.message)
+      const r = await mapErrorTypedAsync(successTyped(7), async (e) =>
+        createSimpleError(e.message)
       );
       expect(isSuccessOf(r)).toBe(true);
       if (isSuccessOf(r)) expect(r.value).toBe(7);

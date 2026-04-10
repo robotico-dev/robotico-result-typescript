@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-04-10
+
+### Added
+
+- **`createSimpleErrorFromUnknownBrowserReason`** — maps `unknown` catches (including `DOMException` and `Error`) to a single outer `IError` with a caller-supplied `code` and default message; used by Robotico IndexedDB / localStorage adapters for consistent `innerError` and `context`.
+
+### Changed
+
+- **`tsconfig`**: `lib` includes **`DOM`** so `DOMException` is typed for the new helper.
+
 ## [1.0.1] - 2026-03-29
 
 ### Changed

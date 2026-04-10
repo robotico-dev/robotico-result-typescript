@@ -16,6 +16,7 @@ export {
   type AggregateErrorType,
   createSimpleError,
   simpleError,
+  createSimpleErrorFromUnknownBrowserReason,
   createValidationError,
   validationErrorForField,
   createExceptionError,

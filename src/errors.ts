@@ -10,6 +10,7 @@ export type { ExceptionError } from "./exception-error.js";
 export type { ErrorBase } from "./error-base.js";
 export type { AggregateErrorType } from "./aggregate-error-type.js";
 export { createSimpleError, simpleError } from "./create-simple-error.js";
+export { createSimpleErrorFromUnknownBrowserReason } from "./create-simple-error-from-unknown-browser-reason.js";
 export {
   createValidationError,
   validationErrorForField,

@@ -1,6 +1,15 @@
 # @robotico-dev/result
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/) [![ESM](https://img.shields.io/badge/module-ESM-FFCA28)](https://nodejs.org/api/esm.html) [![Vitest](https://img.shields.io/badge/tests-Vitest-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/) [![ESLint](https://img.shields.io/badge/lint-ESLint-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
+**Tech stack**
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![ESM](https://img.shields.io/badge/module-ESM-FFCA28)](https://nodejs.org/api/esm.html)
+[![Vitest](https://img.shields.io/badge/tests-Vitest-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![ESLint](https://img.shields.io/badge/lint-ESLint-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
+[![Prettier](https://img.shields.io/badge/format-Prettier-F7B93E?logo=prettier&logoColor=black)](https://prettier.io/)
+[![Typedoc](https://img.shields.io/badge/docs-Typedoc-3178C6)](https://typedoc.org/)
+[![GitHub Packages](https://img.shields.io/badge/registry-GitHub%20Packages-24292e?logo=github)](https://github.com/orgs/robotico-dev/packages)
 
 **Result** type for success/error handling in TypeScript: `Ok(value)` | `Err(error)`. Supports void results, typed errors, and async. Aligned with Robotico.Result (C#) and dev.robotico.result (Kotlin).
 
@@ -26,6 +35,7 @@ import {
   tryResult,
   combine,
   createSimpleError,
+  createSimpleErrorFromUnknownBrowserReason,
 } from "@robotico-dev/result";
 
 const r = successOf(42);
@@ -36,6 +46,17 @@ getValue(r);                     // 42 | undefined
 
 // At process/API boundaries only: throw if error
 const value = expectSuccess(r);  // throws with error message if Err
+
+// Map DOM / IndexedDB / localStorage throws to IError (shared by Robotico browser adapters)
+try {
+  // ...
+} catch (e) {
+  createSimpleErrorFromUnknownBrowserReason(
+    e,
+    "STORAGE_FAILED",
+    "Storage operation failed"
+  );
+}
 
 // Wrap exceptions
 const r2 = tryResult(() => JSON.parse(input));
