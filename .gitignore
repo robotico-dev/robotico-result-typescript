@@ -20,3 +20,6 @@ Thumbs.db
 # Test / coverage
 coverage/
 .nyc_output/
+
+# npm pack
+*.tgz
