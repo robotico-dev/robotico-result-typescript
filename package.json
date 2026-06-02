@@ -37,7 +37,7 @@
     "url": "git+https://github.com/robotico-dev/robotico-result-typescript.git"
   },
   "publishConfig": {
-    "registry": "https://download.robotico.dev/npm/",
+    "registry": "https://brokkr.robotico.dev/api/packages/robotico/npm/",
     "access": "public"
   },
   "devDependencies": {
