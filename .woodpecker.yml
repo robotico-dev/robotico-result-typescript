@@ -1,0 +1,48 @@
+# Woodpecker — @robotico/result-typescript
+# MUST: version in package.json → tag v{version} → npm publish → download.robotico.dev
+
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+
+steps:
+  verify:
+    image: node:20-bookworm
+    commands:
+      - |
+        test -f package.json || { echo "MUST - package.json with version field"; exit 1; }
+      - npm ci
+      - npm run build
+      - npm run test:coverage
+      - npm run lint
+      - npm run format:check
+    when:
+      - event: [pull_request, push]
+
+  release:
+    image: node:20-bookworm
+    environment:
+      PUBLISH_TOKEN:
+        from_secret: publish_token
+      GITEA_TOKEN:
+        from_secret: gitea_token
+    commands:
+      - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git ca-certificates
+      - |
+        test -f package.json || { echo "MUST - package.json with version field"; exit 1; }
+      - npm ci
+      - npm run build
+      - npm run test:coverage
+      - npm run lint
+      - npm run format:check
+      - bash scripts/woodpecker-release.sh
+    when:
+      - event: push
+        branch: main
+        path:
+          exclude:
+            - README.md
+            - CONTRIBUTING.md
+            - COVERAGE.md
+            - CHANGELOG.md

@@ -1,4 +1,4 @@
-# @robotico-dev/result
+# @robotico/result-typescript
 
 **Tech stack**
 
@@ -16,7 +16,7 @@
 ## Install
 
 ```bash
-npm install @robotico-dev/result
+npm install @robotico/result-typescript
 ```
 
 **Requirements:** Node.js >= 18.
@@ -36,7 +36,7 @@ import {
   combine,
   createSimpleError,
   createSimpleErrorFromUnknownBrowserReason,
-} from "@robotico-dev/result";
+} from "@robotico/result-typescript";
 
 const r = successOf(42);
 map(r, (x) => x + 1);           // Ok(43)
@@ -80,7 +80,7 @@ import {
   validationErrorForField,
   createExceptionError,
   aggregateError,
-} from "@robotico-dev/result";
+} from "@robotico/result-typescript";
 
 simpleError("Something went wrong");
 createValidationError({ email: ["invalid"], name: ["required"] });

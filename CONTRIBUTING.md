@@ -4,6 +4,8 @@
 
 This package follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html) (semver). Update `CHANGELOG.md` for every release.
 
+**Woodpecker (Brokkr / dvalin):** bump `"version"` in `package.json` only, merge to `main`. CI on `https://dvalin.robotico.dev` creates tag `v{version}` and publishes to `https://download.robotico.dev/npm/`. Do not create release tags manually. See repo `scripts/` and `bluelake-architecture/06-deployment/woodpecker-dvalin/pilot-robotico-npm-typescript.adoc`.
+
 ## Quality bar
 
 - **Lint:** `npm run lint` (ESLint with type-aware rules, zero warnings).
