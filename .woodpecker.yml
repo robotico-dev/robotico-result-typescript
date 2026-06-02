@@ -8,7 +8,7 @@ when:
 
 steps:
   verify:
-    image: node:20-bookworm
+    image: mirror.gcr.io/library/node:20-bookworm
     commands:
       - |
         test -f package.json || { echo "MUST - package.json with version field"; exit 1; }
@@ -21,7 +21,7 @@ steps:
       - event: [pull_request, push]
 
   release:
-    image: node:20-bookworm
+    image: mirror.gcr.io/library/node:20-bookworm
     environment:
       PUBLISH_TOKEN:
         from_secret: publish_token
