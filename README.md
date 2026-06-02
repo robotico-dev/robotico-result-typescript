@@ -1,5 +1,7 @@
 # @robotico/result-typescript
 
+[![Woodpecker CI](https://dvalin.robotico.dev/api/badges/robotico/robotico-result-typescript/status.svg)](https://dvalin.robotico.dev/robotico/robotico-result-typescript)
+
 **Tech stack**
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
