@@ -38,3 +38,4 @@ steps:
             - README.md
             - CONTRIBUTING.md
             - CHANGELOG.md
+            - .npmrc
