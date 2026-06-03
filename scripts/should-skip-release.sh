@@ -39,7 +39,8 @@ fi
 tag_sha="$(git rev-parse "refs/tags/${TAG}^{commit}")"
 
 if [[ "${tag_sha}" == "${CI_COMMIT_SHA}" ]]; then
-  exit 1
+  echo "[INFO] release skipped: ${TAG} already points at ${CI_COMMIT_SHA:0:7}"
+  exit 0
 fi
 
 git fetch origin "${tag_sha}" --depth=1 2>/dev/null || git fetch origin "${tag_sha}" 2>/dev/null || true
