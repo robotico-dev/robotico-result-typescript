@@ -23,6 +23,8 @@ steps:
   release:
     image: mirror.gcr.io/library/node:20-bookworm
     environment:
+      NPM_PUSH_REGISTRY: https://download.robotico.dev/npm/
+      VERDACCIO_USER: ci
       PUBLISH_TOKEN:
         from_secret: publish_token
       GITEA_TOKEN:

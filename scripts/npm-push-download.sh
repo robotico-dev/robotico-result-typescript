@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
-# Publish npm package. Default: Brokkr Gitea Packages (matches Woodpecker publish_token).
-# Override with NPM_PUSH_REGISTRY=https://download.robotico.dev/npm/ when Verdaccio token is configured.
+# Publish to download.robotico.dev npm (Verdaccio → bare metal under /var/lib/robotico/robotico-registry/npm).
+# ADR: authoritative storage is on pest, not Brokkr Gitea Packages.
+#
+# Woodpecker secrets:
+#   publish_token — Verdaccio htpasswd password for VERDACCIO_USER (see mishima-downloads phase-2 runbook)
+#   VERDACCIO_USER — optional env (default: ci)
+#
+# Optional: NPM_PUSH_REGISTRY (default https://download.robotico.dev/npm/)
+# Lab loopback: NPM_PUSH_REGISTRY=http://127.0.0.1:4873/npm/
 set -euo pipefail
 
-REGISTRY="${NPM_PUSH_REGISTRY:-https://brokkr.robotico.dev/api/packages/robotico/npm/}"
-TOKEN="${PUBLISH_TOKEN:?Set PUBLISH_TOKEN (Woodpecker secret publish_token)}"
+REGISTRY="${NPM_PUSH_REGISTRY:-https://download.robotico.dev/npm/}"
+VERDACCIO_USER="${VERDACCIO_USER:-ci}"
+TOKEN="${PUBLISH_TOKEN:?Set PUBLISH_TOKEN (Verdaccio htpasswd password for ${VERDACCIO_USER})}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${ROOT}"
 
-# Scoped .npmrc (consumer installs via download.robotico.dev) must not override CI publish registry.
+# Consumer .npmrc in repo must not override publish registry/auth.
 if [[ -f .npmrc ]]; then
   mv .npmrc .npmrc.ci-bak
   restore_npmrc() { [[ -f .npmrc.ci-bak ]] && mv .npmrc.ci-bak .npmrc; }
@@ -23,7 +31,20 @@ if [[ ! -f package.json ]]; then
   exit 1
 fi
 
-npm config set "${REGISTRY}:_authToken" "${TOKEN}"
+TMP_NPMRC="$(mktemp)"
+trap 'rm -f "$TMP_NPMRC"' EXIT
+AUTH_B64="$(printf '%s:%s' "${VERDACCIO_USER}" "${TOKEN}" | base64 | tr -d '\n')"
+{
+  echo "registry=${REGISTRY}"
+  echo "_auth=${AUTH_B64}"
+  echo "always-auth=true"
+  echo "email=woodpecker@dvalin.robotico.dev"
+} >"${TMP_NPMRC}"
+
+export NPM_CONFIG_USERCONFIG="${TMP_NPMRC}"
+
+echo ">>> npm whoami (${REGISTRY})"
+npm whoami --registry "${REGISTRY}"
 
 set +e
 out="$(npm publish --registry "${REGISTRY}" --access public 2>&1)"
@@ -32,7 +53,7 @@ set -e
 printf '%s\n' "$out"
 
 if [[ "$code" -eq 0 ]]; then
-  echo "[OK] ${NAME}@${VERSION} — published to ${REGISTRY}"
+  echo "[OK] ${NAME}@${VERSION} — published to ${REGISTRY} (Verdaccio storage on download.robotico.dev)"
   exit 0
 fi
 
