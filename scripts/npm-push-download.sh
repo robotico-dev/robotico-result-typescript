@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Publish to Brokkr npm (Gitea Packages). Never overwrites an existing version.
+# Publish to download.robotico.dev npm (Verdaccio). Never overwrites an existing version.
 set -euo pipefail
 
-REGISTRY="${NPM_PUSH_REGISTRY:-https://brokkr.robotico.dev/api/packages/robotico/npm/}"
+REGISTRY="${NPM_PUSH_REGISTRY:-https://download.robotico.dev/npm/}"
 TOKEN="${PUBLISH_TOKEN:?Set PUBLISH_TOKEN (Woodpecker secret publish_token)}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${ROOT}"

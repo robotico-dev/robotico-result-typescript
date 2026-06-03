@@ -1,6 +1,6 @@
 {
   "name": "@robotico/result-typescript",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Robotico Result — Result type for success/error handling in TypeScript.",
   "type": "module",
   "main": "dist/index.js",
@@ -15,7 +15,9 @@
   "engines": {
     "node": ">=18"
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "tsc",
@@ -29,7 +31,12 @@
     "format:check": "prettier --check \"src/**/*.ts\"",
     "docs": "typedoc --out docs src/index.ts --exclude \"**/*.test.ts\" --exclude \"**/*.laws.test.ts\""
   },
-  "keywords": ["robotico", "result", "either", "error-handling"],
+  "keywords": [
+    "robotico",
+    "result",
+    "either",
+    "error-handling"
+  ],
   "author": "Robotico",
   "license": "MIT",
   "repository": {
@@ -37,7 +44,7 @@
     "url": "git+https://github.com/robotico-dev/robotico-result-typescript.git"
   },
   "publishConfig": {
-    "registry": "https://brokkr.robotico.dev/api/packages/robotico/npm/",
+    "registry": "https://download.robotico.dev/npm/",
     "access": "public"
   },
   "devDependencies": {
