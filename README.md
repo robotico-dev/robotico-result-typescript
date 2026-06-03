@@ -11,14 +11,15 @@
 [![ESLint](https://img.shields.io/badge/lint-ESLint-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
 [![Prettier](https://img.shields.io/badge/format-Prettier-F7B93E?logo=prettier&logoColor=black)](https://prettier.io/)
 [![Typedoc](https://img.shields.io/badge/docs-Typedoc-3178C6)](https://typedoc.org/)
-[![GitHub Packages](https://img.shields.io/badge/registry-GitHub%20Packages-24292e?logo=github)](https://github.com/orgs/robotico-dev/packages)
+[![robotico-downloads](https://img.shields.io/badge/registry-download.robotico.dev-0ea5e9?logo=npm)](https://download.robotico.dev/npm/)
 
 **Result** type for success/error handling in TypeScript: `Ok(value)` | `Err(error)`. Supports void results, typed errors, and async. Aligned with Robotico.Result (C#) and dev.robotico.result (Kotlin).
 
 ## Install
 
 ```bash
-npm install @robotico/result-typescript
+# Consumer: scope @robotico/* to robotico-downloads (see typescript/.npmrc.robotico-downloads.example)
+npm install @robotico/result-typescript --registry https://download.robotico.dev/npm/
 ```
 
 **Requirements:** Node.js >= 18.
@@ -114,4 +115,4 @@ Run `npm run docs` to generate API documentation in `docs/` (requires [TypeDoc](
 
 ## License
 
-MIT. See [repository](https://github.com/robotico-dev/robotico-result-typescript) for more.
+MIT. See [repository](https://brokkr.robotico.dev/robotico/robotico-result-typescript) for more.

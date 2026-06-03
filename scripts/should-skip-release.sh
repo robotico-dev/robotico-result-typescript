@@ -47,7 +47,7 @@ git fetch origin "${tag_sha}" --depth=1 2>/dev/null || git fetch origin "${tag_s
 while IFS= read -r path; do
   [[ -z "${path}" ]] && continue
   case "${path}" in
-    README.md|CONTRIBUTING.md|COVERAGE.md|TYPE-PERFILE.md|CHANGELOG.md|.woodpecker.yml|scripts/*|docs/*|eslint-shared/*|.github/*|vitest.config.ts|eslint.config.js|tsconfig.json|package-lock.json) ;;
+    README.md|CONTRIBUTING.md|COVERAGE.md|TYPE-PERFILE.md|CHANGELOG.md|.woodpecker.yml|.npmrc|scripts/*|docs/*|eslint-shared/*|vitest.config.ts|eslint.config.js|tsconfig.json|package-lock.json) ;;
     *)
       exit 1
       ;;

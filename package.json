@@ -41,7 +41,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robotico-dev/robotico-result-typescript.git"
+    "url": "git+https://brokkr.robotico.dev/robotico/robotico-result-typescript.git"
   },
   "publishConfig": {
     "registry": "https://download.robotico.dev/npm/",

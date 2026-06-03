@@ -1,5 +1,5 @@
 # Woodpecker — @robotico/result-typescript
-# MUST: version → tag → npm pack → copy to /var/lib/robotico/robotico-registry/npm (Verdaccio metal)
+# Brokkr (forge) → dvalin (CI) → metal npm → https://download.robotico.dev/npm/
 
 when:
   - event: pull_request
@@ -13,10 +13,7 @@ steps:
       - |
         test -f package.json || { echo "MUST - package.json with version field"; exit 1; }
       - npm ci
-      - npm run build
-      - npm run test:coverage
-      - npm run lint
-      - npm run format:check
+      - npm run verify
     when:
       - event: [pull_request, push]
 
@@ -31,10 +28,7 @@ steps:
       - |
         test -f package.json || { echo "MUST - package.json with version field"; exit 1; }
       - npm ci
-      - npm run build
-      - npm run test:coverage
-      - npm run lint
-      - npm run format:check
+      - npm run verify
       - bash scripts/woodpecker-release.sh
     when:
       - event: push
@@ -43,5 +37,4 @@ steps:
           exclude:
             - README.md
             - CONTRIBUTING.md
-            - COVERAGE.md
             - CHANGELOG.md
