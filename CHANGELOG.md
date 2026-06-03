@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.8] - 2026-06-03
+
+### Fixed
+
+- Woodpecker release uses `network_mode: host` and loopback Verdaccio (`127.0.0.1:4873/npm/`) so publish lands on pest metal storage.
+
 ## [1.0.7] - 2026-06-03
 
 ### Fixed
