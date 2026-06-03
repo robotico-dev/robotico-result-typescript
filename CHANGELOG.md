@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.11] - 2026-05-30
+
+### Fixed
+
+- Woodpecker metal copy via nested `docker run` (dvalin disallows `volumes:` in pipeline YAML).
+
 ## [1.0.10] - 2026-05-30
 
 ### Fixed
