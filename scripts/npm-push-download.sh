@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Publish to download.robotico.dev npm (Verdaccio). Never overwrites an existing version.
+# Publish npm package. Default: Brokkr Gitea Packages (matches Woodpecker publish_token).
+# Override with NPM_PUSH_REGISTRY=https://download.robotico.dev/npm/ when Verdaccio token is configured.
 set -euo pipefail
 
-REGISTRY="${NPM_PUSH_REGISTRY:-https://download.robotico.dev/npm/}"
+REGISTRY="${NPM_PUSH_REGISTRY:-https://brokkr.robotico.dev/api/packages/robotico/npm/}"
 TOKEN="${PUBLISH_TOKEN:?Set PUBLISH_TOKEN (Woodpecker secret publish_token)}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${ROOT}"

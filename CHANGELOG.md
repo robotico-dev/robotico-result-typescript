@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2026-06-03
+
+### Changed
+
+- Woodpecker publish: use Brokkr Gitea Packages npm (`publish_token`); consumer installs via `download.robotico.dev/npm` (`.npmrc`).
+
 ## [1.0.3] - 2026-06-03
 
 ### Changed
 
-- Woodpecker release: publish to `https://download.robotico.dev/npm/` (was Brokkr Gitea Packages URL).
-- CI uses GCR mirror for Node images on dvalin.
+- Woodpecker CI and release wiring on dvalin (tag + npm); superseded by 1.0.4 publish fix.
 
 ## [1.0.2] - 2026-04-10
 

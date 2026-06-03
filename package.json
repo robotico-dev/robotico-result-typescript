@@ -1,6 +1,6 @@
 {
   "name": "@robotico/result-typescript",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Robotico Result — Result type for success/error handling in TypeScript.",
   "type": "module",
   "main": "dist/index.js",
@@ -44,7 +44,7 @@
     "url": "git+https://github.com/robotico-dev/robotico-result-typescript.git"
   },
   "publishConfig": {
-    "registry": "https://download.robotico.dev/npm/",
+    "registry": "https://brokkr.robotico.dev/api/packages/robotico/npm/",
     "access": "public"
   },
   "devDependencies": {
