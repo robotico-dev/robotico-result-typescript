@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.10] - 2026-05-30
+
+### Fixed
+
+- Woodpecker release copies `npm pack` tarball + Verdaccio `package.json` metadata directly to `/var/lib/robotico/robotico-registry/npm` (no `npm publish`, no HTTP).
+
+## [1.0.9] - 2026-05-30
+
+### Fixed
+
+- Woodpecker publish uses Verdaccio loopback (`http://<docker-gateway>:4873/npm/`) so packages land on pest metal storage (`/var/lib/robotico/robotico-registry/npm`), not HTTPS to `download.robotico.dev` from CI.
+
 ## [1.0.8] - 2026-06-03
 
 ### Fixed

@@ -1,5 +1,5 @@
 # Woodpecker — @robotico/result-typescript
-# MUST: version in package.json → tag v{version} → npm publish → download.robotico.dev
+# MUST: version → tag → npm pack → copy to /var/lib/robotico/robotico-registry/npm (Verdaccio metal)
 
 when:
   - event: pull_request
@@ -22,11 +22,10 @@ steps:
 
   release:
     image: mirror.gcr.io/library/node:20-bookworm
+    volumes:
+      - /var/lib/robotico/robotico-registry/npm:/var/lib/robotico/robotico-registry/npm
     environment:
-      NPM_PUSH_REGISTRY: https://download.robotico.dev/npm/
-      VERDACCIO_USER: ci
-      PUBLISH_TOKEN:
-        from_secret: publish_token
+      ROBOTICO_REGISTRY_NPM_HOST: /var/lib/robotico/robotico-registry/npm
       GITEA_TOKEN:
         from_secret: gitea_token
     commands:
