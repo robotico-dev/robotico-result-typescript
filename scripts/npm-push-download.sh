@@ -34,10 +34,13 @@ fi
 TMP_NPMRC="$(mktemp)"
 trap 'rm -f "$TMP_NPMRC"' EXIT
 AUTH_B64="$(printf '%s:%s' "${VERDACCIO_USER}" "${TOKEN}" | base64 | tr -d '\n')"
+REGISTRY_KEY="${REGISTRY#https://}"
+REGISTRY_KEY="${REGISTRY_KEY#http://}"
+REGISTRY_KEY="${REGISTRY_KEY%/}"
 {
   echo "registry=${REGISTRY}"
-  echo "_auth=${AUTH_B64}"
-  echo "always-auth=true"
+  echo "//${REGISTRY_KEY}/:_auth=${AUTH_B64}"
+  echo "//${REGISTRY_KEY}/:always-auth=true"
   echo "email=woodpecker@dvalin.robotico.dev"
 } >"${TMP_NPMRC}"
 

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.7] - 2026-06-03
+
+### Fixed
+
+- npm 10 publish auth: use `//download.robotico.dev/npm/:_auth` (not legacy global `_auth`).
+
 ## [1.0.6] - 2026-06-03
 
 ### Fixed
