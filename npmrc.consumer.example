@@ -1,0 +1,2 @@
+# Copy into consuming apps (not this package repo — breaks Woodpecker publish).
+@robotico:registry=https://download.robotico.dev/npm/

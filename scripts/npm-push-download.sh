@@ -8,6 +8,13 @@ TOKEN="${PUBLISH_TOKEN:?Set PUBLISH_TOKEN (Woodpecker secret publish_token)}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${ROOT}"
 
+# Scoped .npmrc (consumer installs via download.robotico.dev) must not override CI publish registry.
+if [[ -f .npmrc ]]; then
+  mv .npmrc .npmrc.ci-bak
+  restore_npmrc() { [[ -f .npmrc.ci-bak ]] && mv .npmrc.ci-bak .npmrc; }
+  trap restore_npmrc EXIT
+fi
+
 NAME="$(node -p "require('./package.json').name")"
 VERSION="$(bash scripts/read-package-version.sh)"
 

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.5] - 2026-06-03
+
+### Fixed
+
+- Woodpecker publish: do not commit `.npmrc` in package repo (scoped registry redirected publish to Verdaccio without CI token).
+
 ## [1.0.4] - 2026-06-03
 
 ### Changed

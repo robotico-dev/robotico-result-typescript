@@ -1,6 +1,6 @@
 {
   "name": "@robotico/result-typescript",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Robotico Result — Result type for success/error handling in TypeScript.",
   "type": "module",
   "main": "dist/index.js",
