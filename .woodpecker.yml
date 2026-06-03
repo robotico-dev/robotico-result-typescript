@@ -22,10 +22,8 @@ steps:
 
   release:
     image: mirror.gcr.io/library/node:20-bookworm
-    # Host network: publish to loopback Verdaccio (metal storage). Consumers still use https://download.robotico.dev/npm/
-    network_mode: host
     environment:
-      NPM_PUSH_REGISTRY: http://127.0.0.1:4873/npm/
+      NPM_PUSH_REGISTRY: https://download.robotico.dev/npm/
       VERDACCIO_USER: ci
       PUBLISH_TOKEN:
         from_secret: publish_token
