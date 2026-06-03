@@ -8,8 +8,8 @@ Semantic Versioning — update `CHANGELOG.md` for every release.
 
 **dvalin secret:** `gitea_token` (Brokkr push for tags).
 
-**One-time dvalin registration:** `WOODPECKER_TOKEN=… BROKKR_MIRANDA_PWD=… bash scripts/activate-woodpecker-dvalin.sh`  
-Bulk (operator): `FORK1/scripts/activate-woodpecker-typescript-patterns.sh`.
+**dvalin credentials (agents):** `source FORK1/scripts/load-robotico-dvalin-env.sh` — see `FORK1/AGENTS.md`.  
+**Enable repo on dvalin:** `bash scripts/activate-woodpecker-dvalin.sh` (loads token automatically on pest).
 
 ## Local verify
 

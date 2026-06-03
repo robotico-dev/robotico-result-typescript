@@ -1,21 +1,33 @@
 #!/usr/bin/env bash
 # Register this repo on dvalin (Woodpecker) and trigger main.
 #
-# Prerequisites:
-#   WOODPECKER_TOKEN — https://dvalin.robotico.dev/user/token
-#   GITEA_TOKEN or BROKKR_MIRANDA_PWD — Brokkr API (resolve forge_remote_id)
+# Credentials (agents: read FORK1/AGENTS.md § Dvalin):
+#   source "$(robotico_find_fork1)/scripts/load-robotico-dvalin-env.sh"
+#   Token file: ~/.config/robotico/woodpecker-token (pest auto-creates via ensure-woodpecker-token-pest.sh)
 #
 # Woodpecker repo secret (UI or API): gitea_token — push release tags to Brokkr
-#
-# Usage (from repo root):
-#   WOODPECKER_TOKEN=... BROKKR_MIRANDA_PWD=... bash scripts/activate-woodpecker-dvalin.sh
-#
-# Bulk (all @robotico/*-typescript):
-#   WOODPECKER_TOKEN=... BROKKR_MIRANDA_PWD=... bash ../../scripts/activate-woodpecker-typescript-patterns.sh
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT}"
+
+_script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+_fork1_from() {
+  local d="$(cd "$1" && pwd)"
+  while [[ "${d}" != "/" ]]; do
+    if [[ -f "${d}/scripts/load-robotico-dvalin-env.sh" ]]; then
+      printf '%s\n' "${d}"
+      return 0
+    fi
+    d="$(dirname "${d}")"
+  done
+  return 1
+}
+_FORK1="$(_fork1_from "${_script_dir}" 2>/dev/null || true)"
+if [[ -n "${_FORK1}" ]]; then
+  # shellcheck source=/dev/null
+  source "${_FORK1}/scripts/load-robotico-dvalin-env.sh"
+fi
 
 WOODPECKER_HOST="${WOODPECKER_HOST:-https://dvalin.robotico.dev}"
 BROKKR_BASE="${BROKKR_BASE:-https://brokkr.robotico.dev}"
@@ -25,7 +37,11 @@ OWNER="${CI_REPO_OWNER:-robotico}"
 NAME="${CI_REPO_NAME:-$(basename "$ROOT")}"
 
 if [[ -z "${WOODPECKER_TOKEN:-}" ]]; then
-  echo "error: set WOODPECKER_TOKEN (dvalin → User settings → CLI/API tokens)" >&2
+  echo "error: WOODPECKER_TOKEN missing. On pest run:" >&2
+  echo "  bash ${_FORK1:-$HOME/ROBOTICO.DEV/FORK1}/scripts/ensure-woodpecker-token-pest.sh" >&2
+  echo "  source ${_FORK1:-$HOME/ROBOTICO.DEV/FORK1}/scripts/load-robotico-dvalin-env.sh" >&2
+  echo "  file: \${WOODPECKER_TOKEN_FILE:-\$HOME/.config/robotico/woodpecker-token}" >&2
+  echo "  see: ${_FORK1:-$HOME/ROBOTICO.DEV/FORK1}/AGENTS.md" >&2
   exit 1
 fi
 
