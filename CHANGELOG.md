@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.12] - 2026-05-30
+
+### Fixed
+
+- Nested docker copy resolves Woodpecker workspace host path via `docker inspect` (exit 127).
+
 ## [1.0.11] - 2026-05-30
 
 ### Fixed
