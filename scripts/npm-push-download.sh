@@ -30,7 +30,16 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 1
 fi
 
-CID="$(hostname)"
+# node:20-bookworm CI image may not ship `hostname` binary (exit 127); use env first.
+CID="${WOODPECKER_STEP_ID:-${HOSTNAME:-}}"
+if [[ -z "${CID}" ]] && command -v hostname >/dev/null 2>&1; then
+  CID="$(hostname)"
+fi
+if [[ -z "${CID}" && -f /etc/hostname ]]; then
+  CID="$(tr -d '[:space:]' </etc/hostname)"
+fi
+CID="${CID:-woodpecker-ci}"
+
 echo ">>> copy via docker (volumes-from=${CID} metal=${METAL})"
 docker run --rm \
   --volumes-from "${CID}" \
@@ -39,4 +48,4 @@ docker run --rm \
   -e ROBOTICO_REGISTRY_NPM_HOST="${METAL}" \
   -e PKG_DIR="${WORK}" \
   "${IMAGE}" \
-  bash scripts/copy-npm-package-to-metal-storage.sh
+  bash -c 'set -euo pipefail; command -v node tar npm >/dev/null; bash scripts/copy-npm-package-to-metal-storage.sh'

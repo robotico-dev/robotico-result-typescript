@@ -24,7 +24,7 @@ steps:
       GITEA_TOKEN:
         from_secret: gitea_token
     commands:
-      - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git ca-certificates docker.io
+      - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git ca-certificates docker.io hostname
       - |
         test -f package.json || { echo "MUST - package.json with version field"; exit 1; }
       - npm ci
@@ -39,3 +39,4 @@ steps:
             - CONTRIBUTING.md
             - CHANGELOG.md
             - .npmrc
+            - "*.tgz"
